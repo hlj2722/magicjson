@@ -45,6 +45,8 @@ func defaultParser(v reflect.Value) ([]byte, error) {
 	return b, nil
 }
 
+
+
 func resolve(v reflect.Value, s string) (any, error) {
 	vKind := v.Kind()
 
@@ -63,14 +65,23 @@ func resolve(v reflect.Value, s string) (any, error) {
 		reflect.Uint16,
 		reflect.Uint32,
 		reflect.Uint64) {
+		if s == "" {
+			s = "0"
+		}
 		return strconv.ParseUint(s, 10, 64)
 	}
 
 	if matchKind(vKind, reflect.Float32, reflect.Float64) {
+		if s == "" {
+			s = "0"
+		}
 		return strconv.ParseFloat(s, 64)
 	}
 
 	if matchKind(vKind, reflect.Complex64, reflect.Complex128) {
+		if s == "" {
+			s = "0"
+		}
 		return strconv.ParseComplex(s, 128)
 	}
 
